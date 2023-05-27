@@ -2,6 +2,7 @@ package pl.edu.agh.mwo;
 
 import org.apache.commons.cli.*;
 import pl.edu.agh.mwo.converters.FileCrawler;
+import pl.edu.agh.mwo.excelImport.ExcelImport;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class App
             String path = "";
             if (cmd.hasOption("path")) {
                 path = cmd.getOptionValue("path");
-                FileCrawler fileCrawler = new FileCrawler(path, "xls");
+                FileCrawler fileCrawler = new FileCrawler(path, "xlsx");
                 fileList =fileCrawler.getFiles();
             } else{
                 System.out.println("Musisz podać ścieżkę. Zrób to za pomocą komendy '-path'.");
@@ -35,7 +36,9 @@ public class App
 
             if(!path.equals("")){
                 if(cmd.hasOption("report_1")){
-                    System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
+                    //System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
+                    ExcelImport ei = new ExcelImport();
+                    ei.excelImport(fileList);
                 }
             }
 
