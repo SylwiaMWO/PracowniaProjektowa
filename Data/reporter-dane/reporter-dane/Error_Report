@@ -1,0 +1,31 @@
+reporter-dane/2012/01/Kowalski_Jan daty OK, godziny OK
+reporter-dane/2012/01/Kuc_Radoslaw daty OK, godziny z przcinkami
+reporter-dane/2012/01/Nowak_Piotr daty OK, godziny z przecinkami
+reporter-dane/2012/01/Paweł_Kuś  daty OK, godziny z przecinkami, polskie litery
+
+reporter-dane/2012/02/Kowalski_Jan daty OK, godziny z przecinkami, pusta linijka w Projekt1
+reporter-dane/2012/02/Kowalski_Jan daty OK, godziny z przecinkami, literówki w Projekt2
+reporter-dane/2012/02/Nowak_Piotr daty OK, godziny z przecinkami, literówki w Projekt2
+
+reporter-dane/2012/03/Kowalski_Jan daty OK, godziny OK,
+reporter-dane/2012/03/Kuc_Radoslaw daty OK, godziny z przecinkami, literówki w Projekt2
+reporter-dane/2012/03/Nowak_Piotr daty NOK, godziny z przecinkami, puste pola, litery zamiast godzin
+reporter-dane/2012/03/Paweł_Kuś daty OK, godziny z przecinkami, literówki w Projekt2, za duża liczba dni w projekt5
+
+
+reporter-dane/2013/01/Kowalski_Jan daty OK, godziny z przecinkami
+reporter-dane/2013/01/Kuc_Radoslaw daty NOK projekty 2 i 5, godziny z przcinkami
+reporter-dane/2013/01/Nowak_Piotr daty OK, godziny z przecinkami,
+reporter-dane/2013/01/Paweł_Kuś daty NOK, godziny z przecinkami, polskie litery, puste pola
+
+reporter-dane/2013/02/Kowalski_Jan daty NOK, godziny z przecinkami, puste pola, brak numeru projektu,
+reporter-dane/2012/02/Nowak_Piotr daty OK, godziny z przecinkami, literówki w Projekt2
+
+
+
+
+
+
+
+
+
