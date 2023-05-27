@@ -1,6 +1,10 @@
 package pl.edu.agh.mwo;
 
 import org.apache.commons.cli.*;
+import pl.edu.agh.mwo.converters.FileCrawler;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Hello world!
@@ -12,31 +16,26 @@ public class App
     {
         Options options = new Options();
         options.addOption("help",true,"Show help");
-        options.addOption("path_to_file",true,"Path to file");
-        options.addOption("path_to_folder",
-                true,"Path to folder");
-        options.addOption("raport_1",false,"Print raport one");
+        options.addOption("path",true,"Path to file");
+        options.addOption("report_1",false,"Print raport one");
         CommandLineParser parser = new DefaultParser();
+
+        ArrayList<File> fileList = new ArrayList<>();
+
         try{
             CommandLine cmd = parser.parse(options, args);
             String path = "";
-            boolean isFile;
-            if(cmd.hasOption("path_to_file")){
-                obsluzKomende("file");
-                path = cmd.getOptionValue("path_to_file");
-                isFile = true;
-            } else if (cmd.hasOption("path_to_folder")) {
-                path = cmd.getOptionValue("path_to_folder");
-                isFile = false;
+            if (cmd.hasOption("path")) {
+                path = cmd.getOptionValue("path");
+                FileCrawler fileCrawler = new FileCrawler(path, "xls");
+                fileList =fileCrawler.getFiles();
             } else{
-                System.out.println("Musisz podać ścieżkę. Zrób to za pomocą komendy 'path_to_file' lub 'path_to_folder'.");
-
+                System.out.println("Musisz podać ścieżkę. Zrób to za pomocą komendy '-path'.");
             }
+
             if(!path.equals("")){
-                if(cmd.hasOption("raport_1")){
-                    /*ReportGenerator reportGenerator = new ReportGenerator();
-                    repo*/
-                    obsluzKomende("raport");
+                if(cmd.hasOption("report_1")){
+                    System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
                 }
             }
 
@@ -44,7 +43,4 @@ public class App
             System.err.println("Błąd parsowania argumentu: " + e.getMessage());
         }
     }
-    private static void obsluzKomende(String s){
-        System.out.println("Wywołano komendę " + s);
-}
 }
