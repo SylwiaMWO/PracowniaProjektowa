@@ -65,8 +65,6 @@ public class App
 
         } catch(ParseException e) {
             System.err.println("Błąd parsowania argumentu: " + e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
