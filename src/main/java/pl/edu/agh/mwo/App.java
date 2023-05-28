@@ -7,13 +7,14 @@ import pl.edu.agh.mwo.exceptions.EmptyPathException;
 import pl.edu.agh.mwo.exceptions.LackOfActionException;
 import pl.edu.agh.mwo.exceptions.LackOfPathException;
 import pl.edu.agh.mwo.raports.RaportOne;
-
+import pl.edu.agh.mwo.raports.RaportThree;
+import pl.edu.agh.mwo.converters.ImportDataToExcel;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
-
-import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -51,22 +52,30 @@ public class App
 
                     RaportOne raport1= new RaportOne();
                     raport1.analyze(importedData);
+
+                    RaportThree raport3= new RaportThree();
+                    Map<String, Double> test = raport3.analyze(importedData);
+                    ImportDataToExcel.readHashMapToExcelReport_1_3(test, "Zadanie", "Plik");
                 } else {
                     throw new LackOfActionException("Musisz podać, co zrobić z danymi. Wykorzystaj opcje raportowania.");
                 }
             } else {
-                throw new EmptyPathException("Nie możesz użyć pustej ścieżki");
+                    throw new EmptyPathException("Nie możesz użyć pustej ścieżki");
             }
-        } catch(ParseException e) {
-            System.err.println("Błąd parsowania argumentu: " + e.getMessage());
         } catch (LackOfPathException e) {  ///TOOOOOO
             System.err.println(e.getMessage());
         } catch (EmptyPathException e) {  ///TOOOOOO
             System.err.println(e.getMessage());
         } catch (LackOfActionException e) {
             System.err.println(e.getMessage());
+        } catch(ParseException e) {
+            System.err.println("Błąd parsowania argumentu: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+//            throw new RuntimeException(e);
         }
 
 
     }
+
 }

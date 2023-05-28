@@ -2,33 +2,13 @@ package pl.edu.agh.mwo.converters;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import  org.apache.poi.hssf.usermodel.HSSFSheet;
 import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import  org.apache.poi.hssf.usermodel.HSSFRow;
 
-public class data_to_excel {
-
-//    HashMap<String, String[]> report_two = new HashMap<>();
-//    HashMap<String, String[]> report_three = new HashMap<>();
-
-//    public void initializeHashMaps(){
-//        report_one.put("Projekty:", new String[]{});
-//        report_one.put("Czas:", new String[]{});
-//    }
-
-
-    /*Printowanie hashmapy w formacie:
-    * klucz1    klucz2    klucz3
-    * danek_1   dane_k2   dane_k3
-    * danek_1   dane_k2   dane_k3
-    * danek_1   dane_k2   dane_k3
-    * danek_1   dane_k2   dane_k3
-    * */
+public class ImportDataToExcel {
     public static void printHashMap(HashMap<String, String[]> hashMapWithValues) {
         for (String key : hashMapWithValues.keySet()) {
             System.out.format("%10s", key);
@@ -57,7 +37,6 @@ public class data_to_excel {
         return maxArrayLength;
     }
 
-    /*Kurde nie wiem czy zadziała, będziemy testować na produkcji :P */
     public static void readHashMapToExcel(HashMap<String, String[]> mapToRead) throws IOException {
         int rowWidth = mapToRead.size();
         int i = 0;
@@ -81,14 +60,23 @@ public class data_to_excel {
         FileOutputStream fileOut = new FileOutputStream(filename);
         workbook.write(fileOut);
     }
-
-    public static void main(String[] args) throws IOException {
-        HashMap<String, String[]> report_one = new HashMap<>();
-        report_one.put("Test1", new String[]{"2", "3", "5"});
-        report_one.put("Test2", new String[]{"6", "7", "8"});
-        report_one.put("Test3", new String[]{"9", "10", "11"});
-        readHashMapToExcel(report_one);
-        printHashMap(report_one);
+    public static void readHashMapToExcelReport_1_3(Map<String, Double> mapToRead, String columnName, String fileName) throws IOException {
+        int i = 0;
+        String filename = "/home/students/j/g/jgrela/pracownia/PracowniaProjektowa/" + fileName +".xls" ;
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("Raport");
+        HSSFRow rowHead = sheet.createRow((short)0);
+        rowHead.createCell(0).setCellValue(columnName);
+        rowHead.createCell(1).setCellValue("Czas");
+        for(String key : mapToRead.keySet()){
+            HSSFRow row = sheet.createRow((short)i+1);
+            row.createCell(0).setCellValue(key);
+            row.createCell(1).setCellValue(mapToRead.get(key));
+            i+=1;
+        }
+        FileOutputStream fileOut = new FileOutputStream(filename);
+        workbook.write(fileOut);
     }
+
 
 }
