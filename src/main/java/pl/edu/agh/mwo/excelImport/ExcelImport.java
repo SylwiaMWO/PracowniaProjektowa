@@ -3,6 +3,7 @@ package pl.edu.agh.mwo.excelImport;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import pl.edu.agh.mwo.exceptions.ExcelImportException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +20,7 @@ public class ExcelImport{
 
             for (File fileIn : fileList) {
 
-                System.out.println(fileIn.getPath());
+                //System.out.println(fileIn.getPath());
 
                 try {
                     FileInputStream file = new FileInputStream(fileIn);
@@ -66,7 +67,7 @@ public class ExcelImport{
                     }
                     file.close();
 
-                    for (List<List<Object>> sheet : workbookData) {
+                    /*for (List<List<Object>> sheet : workbookData) {
                         for (List<Object> row : sheet) {
                             for (Object cell : row) {
                                 System.out.print(cell + " ");
@@ -74,12 +75,12 @@ public class ExcelImport{
                             System.out.println("");
                         }
                         System.out.println("End of sheet");
-                    }
+                    }*/
 
                     workbookDataList.add(workbookData);
-
                 } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Błąd importu do excela");
             }
         }
 

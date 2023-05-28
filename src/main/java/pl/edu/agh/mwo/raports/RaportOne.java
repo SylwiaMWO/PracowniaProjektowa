@@ -32,7 +32,7 @@ public class RaportOne implements Raport {
 
 
         for (Map.Entry<String, Double> entry : sheetTimeSums.entrySet()) {
-            System.out.println("Project: " + entry.getKey() + ", Total Time: " + entry.getValue());
+            System.out.println("Projekt: " + entry.getKey() + ", Czas pracy: " + entry.getValue() +"h");
         }
 
 

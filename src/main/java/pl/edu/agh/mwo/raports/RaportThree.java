@@ -29,7 +29,7 @@ public class RaportThree implements Raport {
 
 
         for (Map.Entry<String, Double> entry : taskTimeSums.entrySet()) {
-            System.out.println("Task: " + entry.getKey() + ", Total Time: " + entry.getValue());
+            System.out.println("Zadanie: " + entry.getKey() + ", Czas pracy: " + entry.getValue() +"h");
         }
 
 

@@ -3,72 +3,86 @@ package pl.edu.agh.mwo;
 import org.apache.commons.cli.*;
 import pl.edu.agh.mwo.converters.FileCrawler;
 import pl.edu.agh.mwo.excelImport.ExcelImport;
+import pl.edu.agh.mwo.exceptions.EmptyPathException;
+import pl.edu.agh.mwo.exceptions.LackOfActionException;
+import pl.edu.agh.mwo.exceptions.LackOfPathException;
+import pl.edu.agh.mwo.raports.Raport;
 import pl.edu.agh.mwo.raports.RaportOne;
 import pl.edu.agh.mwo.raports.RaportThree;
-import pl.edu.agh.mwo.converters.data_to_excel;
+import pl.edu.agh.mwo.converters.ImportDataToExcel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
-import pl.edu.agh.mwo.converters.data_to_excel;
-import java.util.HashMap;
 import java.util.Map;
 
+public class App {
 
-/**
- * Hello world!
- *
- */
-public class App
-{
-    public static void main( String[] args )
-    {
-
-        List<List<List<List<Object>>>> importedData= new ArrayList<>();
+    private static List<List<List<List<Object>>>> importedData= new ArrayList<>();
+    private static ArrayList<File> fileList = new ArrayList<>();
+    public static void main( String[] args ) {
 
         Options options = new Options();
         options.addOption("help",true,"Show help");
-        options.addOption("path",true,"Path to file");
-        options.addOption("report_1",false,"Print raport one");
+        options.addOption("path",true,"Path to file or folder");
+        options.addOption("output",true,"Path to output folder");
+        options.addOption("report_1",false,"Print report one");
+        options.addOption("report_3",false,"Print report three");
         CommandLineParser parser = new DefaultParser();
-
-        ArrayList<File> fileList = new ArrayList<>();
 
         try{
             CommandLine cmd = parser.parse(options, args);
             String path = "";
+            String outputPath;
             if (cmd.hasOption("path")) {
                 path = cmd.getOptionValue("path");
                 FileCrawler fileCrawler = new FileCrawler(path, "xlsx");
                 fileList =fileCrawler.getFiles();
-            } else{
-                System.out.println("Musisz podać ścieżkę. Zrób to za pomocą komendy '-path'.");
+            } else{  ///TOOOOOO
+                throw new LackOfPathException("Musisz podać ścieżkę. Zrób to za pomocą komendy '-path'.");
+            }
+
+            if (cmd.hasOption("output")) {
+                outputPath = cmd.getOptionValue("output");
+            } else {
+                throw new LackOfPathException("Musisz podać ścieżkę, gdzie zapisać plik. Zrób to za pomocą komendy '-output'.");
             }
 
             if(!path.equals("")){
-                if(cmd.hasOption("report_1")){
-                    //System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
-                    ExcelImport ei = new ExcelImport();
-                    importedData= ei.excelImport(fileList);
-
-                    RaportOne raport1= new RaportOne();
-
-
-                    raport1.analyze(importedData);
-
+                if(cmd.hasOption("report_1")) {
+                    System.out.println("##### RAPORT 1 #####");
+                    RaportOne raport1 = new RaportOne();
+                    handleAnalysis(raport1, outputPath, "Projekt", "Raport_1");
+                } else if( cmd.hasOption("report_3")) {
+                    System.out.println();
+                    System.out.println("##### RAPORT 3 #####");
                     RaportThree raport3= new RaportThree();
-                    Map<String, Double> test = raport3.analyze(importedData);
-                    data_to_excel.readHashMapToExcelReport_1_3(test, "Zadanie", "Plik");
-
+                    handleAnalysis(raport3, outputPath, "Zadanie", "Raport_3");
+                } else {
+                    throw new LackOfActionException("Musisz podać, co zrobić z danymi. Wykorzystaj opcje raportowania.");
                 }
+            } else {
+                    throw new EmptyPathException("Nie możesz użyć pustej ścieżki");
             }
-
+        } catch (LackOfPathException e) {
+            System.err.println(e.getMessage());
+        } catch (EmptyPathException e) {
+            System.err.println(e.getMessage());
+        } catch (LackOfActionException e) {
+            System.err.println(e.getMessage());
         } catch(ParseException e) {
             System.err.println("Błąd parsowania argumentu: " + e.getMessage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
+    }
+
+    public static void handleAnalysis(Raport raport, String outputPath, String columnName, String fileName) throws IOException {
+        ExcelImport ei = new ExcelImport();
+        importedData= ei.excelImport(fileList);
+        Map<String, Double> test = raport.analyze(importedData);
+        ImportDataToExcel.readHashMapToExcelReport_1_3(test, columnName, fileName, outputPath);
     }
 
 }
