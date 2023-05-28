@@ -7,11 +7,13 @@ import pl.edu.agh.mwo.raports.RaportOne;
 import pl.edu.agh.mwo.raports.RaportThree;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
-
+import pl.edu.agh.mwo.converters.data_to_excel;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -51,15 +53,20 @@ public class App
                     importedData= ei.excelImport(fileList);
 
                     RaportOne raport1= new RaportOne();
+
+
                     raport1.analyze(importedData);
 
                     RaportThree raport3= new RaportThree();
                     raport3.analyze(importedData);
+
                 }
             }
 
         } catch(ParseException e) {
             System.err.println("Błąd parsowania argumentu: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
