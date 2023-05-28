@@ -5,6 +5,7 @@ import pl.edu.agh.mwo.converters.FileCrawler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Hello world!
