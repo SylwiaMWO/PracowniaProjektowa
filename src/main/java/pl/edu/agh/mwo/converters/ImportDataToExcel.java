@@ -15,7 +15,6 @@ public class ImportDataToExcel {
         }
         System.out.println();
 
-
         int arrayLength = getArrayLength(hashMapWithValues);
         for (int i = 0; i < arrayLength; i++) {
             for (String[] values : hashMapWithValues.values()) {
@@ -37,32 +36,9 @@ public class ImportDataToExcel {
         return maxArrayLength;
     }
 
-    public static void readHashMapToExcel(HashMap<String, String[]> mapToRead) throws IOException {
-        int rowWidth = mapToRead.size();
+    public static void readHashMapToExcelReport_1_3(Map<String, Double> mapToRead, String columnName, String fileName, String outputPath) throws IOException {
         int i = 0;
-        int arrayLength = getArrayLength(mapToRead);
-        String filename = "/home/students/j/g/jgrela/pracownia/PracowniaProjektowa/DataRaport.xls" ;
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("Raport");
-        HSSFRow rowHead = sheet.createRow((short)0);
-        for(String key : mapToRead.keySet()){
-            rowHead.createCell(i).setCellValue(key);
-            i+=1;
-        }
-        for(int step = 0; step < arrayLength; step++){
-            int j = 0;
-            HSSFRow row = sheet.createRow((short)step+1);
-            for(String key : mapToRead.keySet()){
-                row.createCell(j).setCellValue(mapToRead.get(key)[step]);
-                j+=1;
-            }
-        }
-        FileOutputStream fileOut = new FileOutputStream(filename);
-        workbook.write(fileOut);
-    }
-    public static void readHashMapToExcelReport_1_3(Map<String, Double> mapToRead, String columnName, String fileName) throws IOException {
-        int i = 0;
-        String filename = "/home/students/j/g/jgrela/pracownia/PracowniaProjektowa/" + fileName +".xls" ;
+        String filename = outputPath + fileName +".xls" ;
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Raport");
         HSSFRow rowHead = sheet.createRow((short)0);
