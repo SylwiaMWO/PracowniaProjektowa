@@ -3,6 +3,7 @@ package pl.edu.agh.mwo.excelImport;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import pl.edu.agh.mwo.exceptions.ExcelImportException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,10 +93,10 @@ public class ExcelImport{
 
                     // Add the workbook data to the workbook data list
                     workbookDataList.add(workbookData);
-
-
+                    workbookDataList.add(workbookData);
                 } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Błąd importu do excela");
             }
         }
 
