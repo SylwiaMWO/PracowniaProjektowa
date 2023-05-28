@@ -81,13 +81,13 @@ public class data_to_excel {
         FileOutputStream fileOut = new FileOutputStream(filename);
         workbook.write(fileOut);
     }
-    public static void readHashMapToExcelReport_1(Map<String, Double> mapToRead) throws IOException {
+    public static void readHashMapToExcelReport_1_3(Map<String, Double> mapToRead, String columnName, String fileName) throws IOException {
         int i = 0;
-        String filename = "/home/students/j/g/jgrela/pracownia/PracowniaProjektowa/DataRaport.xls" ;
+        String filename = "/home/students/j/g/jgrela/pracownia/PracowniaProjektowa/" + fileName +".xls" ;
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Raport");
         HSSFRow rowHead = sheet.createRow((short)0);
-        rowHead.createCell(0).setCellValue("Projekt");
+        rowHead.createCell(0).setCellValue(columnName);
         rowHead.createCell(1).setCellValue("Czas");
         for(String key : mapToRead.keySet()){
             HSSFRow row = sheet.createRow((short)i+1);
