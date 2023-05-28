@@ -4,6 +4,7 @@ import org.apache.commons.cli.*;
 import pl.edu.agh.mwo.converters.FileCrawler;
 import pl.edu.agh.mwo.excelImport.ExcelImport;
 import pl.edu.agh.mwo.raports.RaportOne;
+import pl.edu.agh.mwo.raports.RaportThree;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class App
     {
 
         List<List<List<List<Object>>>> importedData= new ArrayList<>();
-
 
         Options options = new Options();
         options.addOption("help",true,"Show help");
@@ -53,10 +53,12 @@ public class App
                     importedData= ei.excelImport(fileList);
 
                     RaportOne raport1= new RaportOne();
-                    Map<String, Double> sheet = raport1.analyze(importedData);
-                    data_to_excel.readHashMapToExcelReport_1(sheet);
 
 
+                    raport1.analyze(importedData);
+
+                    RaportThree raport3= new RaportThree();
+                    raport3.analyze(importedData);
 
                 }
             }
@@ -67,4 +69,5 @@ public class App
             throw new RuntimeException(e);
         }
     }
+
 }
