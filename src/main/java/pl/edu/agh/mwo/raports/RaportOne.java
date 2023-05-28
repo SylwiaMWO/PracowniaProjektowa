@@ -43,7 +43,7 @@ public class RaportOne {
             System.out.println("Project: " + entry.getKey() + ", Total Time: " + entry.getValue());
         }
 
-  
+
         return sheetTimeSums;
     }
 }
