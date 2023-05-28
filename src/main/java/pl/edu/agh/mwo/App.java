@@ -3,9 +3,11 @@ package pl.edu.agh.mwo;
 import org.apache.commons.cli.*;
 import pl.edu.agh.mwo.converters.FileCrawler;
 import pl.edu.agh.mwo.excelImport.ExcelImport;
+import pl.edu.agh.mwo.raports.RaportOne;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hello world!
@@ -15,6 +17,10 @@ public class App
 {
     public static void main( String[] args )
     {
+
+        List<List<List<List<Object>>>> importedData= new ArrayList<>();
+
+
         Options options = new Options();
         options.addOption("help",true,"Show help");
         options.addOption("path",true,"Path to file");
@@ -38,7 +44,14 @@ public class App
                 if(cmd.hasOption("report_1")){
                     //System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
                     ExcelImport ei = new ExcelImport();
-                    ei.excelImport(fileList);
+                    importedData= ei.excelImport(fileList);
+
+                    RaportOne raport1= new RaportOne();
+                    raport1.analyze(importedData);
+
+
+
+
                 }
             }
 
