@@ -1,5 +1,6 @@
 # PracowniaProjektowa
-Wstęp 
+Wstęp
+
 Stworzyliśmy dla Państwa wygodne i funkcjonalne oprogramowanie, które ułatwi przygotowanie kilku rodzajów raportów. Aplikacja ma pomóc Państwu w codziennej pracy, aby zaoszczędzić czas i sprawić, by żmudna i pracochłonna praca nie była jedynie przykrym obowiązkiem.
 Niniejsza instrukcja ma na celu wprowadzenie w naszą aplikację oraz omówienie jej wszystkich funkcjonalności. Z pewnością pomoże Państwu w obsłudze naszego oprogramowania. 
 
