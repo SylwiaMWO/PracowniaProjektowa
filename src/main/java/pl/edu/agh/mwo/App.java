@@ -2,10 +2,16 @@ package pl.edu.agh.mwo;
 
 import org.apache.commons.cli.*;
 import pl.edu.agh.mwo.converters.FileCrawler;
+import pl.edu.agh.mwo.excelImport.ExcelImport;
+import pl.edu.agh.mwo.raports.RaportOne;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import java.util.List;
+
 import java.util.HashMap;
+
 
 /**
  * Hello world!
@@ -15,6 +21,10 @@ public class App
 {
     public static void main( String[] args )
     {
+
+        List<List<List<List<Object>>>> importedData= new ArrayList<>();
+
+
         Options options = new Options();
         options.addOption("help",true,"Show help");
         options.addOption("path",true,"Path to file");
@@ -28,7 +38,7 @@ public class App
             String path = "";
             if (cmd.hasOption("path")) {
                 path = cmd.getOptionValue("path");
-                FileCrawler fileCrawler = new FileCrawler(path, "xls");
+                FileCrawler fileCrawler = new FileCrawler(path, "xlsx");
                 fileList =fileCrawler.getFiles();
             } else{
                 System.out.println("Musisz podać ścieżkę. Zrób to za pomocą komendy '-path'.");
@@ -36,7 +46,16 @@ public class App
 
             if(!path.equals("")){
                 if(cmd.hasOption("report_1")){
-                    System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
+                    //System.out.println("Generowanie raportu - jako argument podamy listę ścieżek");
+                    ExcelImport ei = new ExcelImport();
+                    importedData= ei.excelImport(fileList);
+
+                    RaportOne raport1= new RaportOne();
+                    raport1.analyze(importedData);
+
+
+
+
                 }
             }
 
