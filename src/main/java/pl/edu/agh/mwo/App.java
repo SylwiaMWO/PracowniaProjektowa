@@ -4,6 +4,7 @@ import org.apache.commons.cli.*;
 import pl.edu.agh.mwo.converters.FileCrawler;
 import pl.edu.agh.mwo.excelImport.ExcelImport;
 import pl.edu.agh.mwo.raports.RaportOne;
+import pl.edu.agh.mwo.raports.RaportThree;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class App
     {
 
         List<List<List<List<Object>>>> importedData= new ArrayList<>();
-
 
         Options options = new Options();
         options.addOption("help",true,"Show help");
@@ -53,9 +53,8 @@ public class App
                     RaportOne raport1= new RaportOne();
                     raport1.analyze(importedData);
 
-
-
-
+                    RaportThree raport3= new RaportThree();
+                    raport3.analyze(importedData);
                 }
             }
 
@@ -63,4 +62,5 @@ public class App
             System.err.println("Błąd parsowania argumentu: " + e.getMessage());
         }
     }
+
 }
